@@ -3,7 +3,13 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "plugin:import/recommended", "plugin:jsx-a11y/recommended", "standard-with-typescript", "eslint-config-prettier"],
+  "extends": [
+    "plugin:react/recommended",
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended",
+    "standard-with-typescript",
+    "eslint-config-prettier"
+  ],
   "settings": {
     "react": {
       "version": "detect"

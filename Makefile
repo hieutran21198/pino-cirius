@@ -1,2 +1,2 @@
 provision:
-	./scripts/provision.sh
+	./scripts/provision.sh $(APP_NAME)

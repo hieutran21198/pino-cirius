@@ -1,6 +1,6 @@
 import { AppTheme } from "./model";
 import { ThemeProvider } from "@emotion/react";
-import { DEFAULT_THEME } from "./constant";
+import { DEFAULT_THEME } from "./constants";
 
 export type Props = {
   theme?: AppTheme;

@@ -10,3 +10,5 @@ npx mrm@2 lint-staged
 current_origin=$(git remote get-url origin)
 
 [ "$current_origin" == "git@github.com:hieutran21198/react-vite-cypress-kit.git" ] || [ "$current_origin" == "https://github.com/hieutran21198/react-vite-cypress-kit.git" ] && git remote remove origin
+
+sed -i "s/pino-cirius/$1/g" package.json

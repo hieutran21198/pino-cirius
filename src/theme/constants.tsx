@@ -1,8 +1,14 @@
 import { AppTheme } from "./model";
 
-export const COLORS = {};
-
-export const DEFAULT_THEME: AppTheme = {};
+export const DEFAULT_THEME: AppTheme = {
+  imgFallback: "https://picsum.photos/id/237/200/300",
+  fontFamily: "DaddyTimeMono",
+  textColor: "rgba(255,255,255, 0.87)",
+  backgroundColor: "#242424",
+  border: "1px solid gray",
+  primaryColor: "#535bf2",
+  primaryColorLighter: "#646cff",
+};
 
 export enum MediaWidth {
   SX = "0em",

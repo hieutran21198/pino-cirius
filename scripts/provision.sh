@@ -2,7 +2,15 @@
 
 [ ! -d .git ] && git init
 
-npx husky-init && yarn
+if [ ! -d .husky ]; then
+	npx husky-init
+else
+	echo "Husky is already installed. Provisioning skipped to init husky"
+fi
+
+echo "Installing package dependencies"
+
+yarn
 
 npx mrm@2 lint-staged
 

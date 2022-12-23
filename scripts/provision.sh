@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ $# -ne 1 ]; then
+	echo "Usage: $0 <file>"
+	exit 1
+fi
+
 [ ! -d "./.git" ] && git init
 
 if [ ! -d "./.husky" ]; then
@@ -19,4 +24,4 @@ current_origin=$(git remote get-url origin)
 
 [ "$current_origin" == "git@github.com:hieutran21198/react-vite-cypress-kit.git" ] || [ "$current_origin" == "https://github.com/hieutran21198/react-vite-cypress-kit.git" ] && git remote remove origin
 
-sed -i "s/pino-cirius/$1/g" package.json
+sed -i "s/pino-cirius/$0/g" package.json

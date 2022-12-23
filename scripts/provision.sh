@@ -1,8 +1,8 @@
 #!/bin/bash
 
-[ ! -d .git ] && git init
+[ ! -d "./.git" ] && git init
 
-if [ ! -d .husky ]; then
+if [ ! -d "./.husky" ]; then
 	npx husky-init
 else
 	echo "Husky is already installed. Provisioning skipped to init husky"

@@ -2,12 +2,15 @@ import { AppTheme } from "./model";
 
 export const DEFAULT_THEME: AppTheme = {
   imgFallback: "https://picsum.photos/id/237/200/300",
-  fontFamily: "DaddyTimeMono",
+  fontFamily: "DaddyTimeMono, Inter, Avenir, Helvetica, Arial, sans-serif",
   textColor: "rgba(255,255,255, 0.87)",
   backgroundColor: "#242424",
+  buttonBackgroundColor: "#1a1a1a",
   border: "1px solid gray",
   primaryColor: "#535bf2",
   primaryColorLighter: "#646cff",
+  headerHeight: "3em",
+  headerHeightLG: "4em",
 };
 
 export enum MediaWidth {

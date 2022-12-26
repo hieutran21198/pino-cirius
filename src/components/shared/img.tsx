@@ -8,13 +8,13 @@ const S = {
   Img: styled.img<{ fallbackSrc?: string }>``,
 };
 
-export const Img = (props: ImgProps) => {
+export const Img: React.FC<ImgProps> = (props: ImgProps) => {
   const theme = useTheme();
 
-  const handleOnError = (e: SyntheticEvent<HTMLImageElement>) => {
+  const handleOnError = (e: SyntheticEvent<HTMLImageElement>): void => {
     e.preventDefault();
 
-    const fallbackSrc = props.fallbackSrc || theme.imgFallback;
+    const fallbackSrc = props.fallbackSrc ?? theme.imgFallback;
 
     e.currentTarget.src = fallbackSrc;
   };

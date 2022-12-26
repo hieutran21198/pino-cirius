@@ -2,15 +2,15 @@ import { AppTheme } from "./model";
 import { css, Global, Interpolation, Theme, ThemeProvider } from "@emotion/react";
 import { DEFAULT_THEME, MediaWidth } from "./constants";
 
-export type Props = {
+export interface Props {
   theme?: AppTheme;
   children?: React.ReactNode;
-};
-export default function AppThemeProvider(props: Props) {
+}
+const AppThemeProvider: React.FC<Props> = (props: Props) => {
   const setCommonGlobalTheme: Interpolation<Theme> = (t: Theme) => {
     return css`
       :root {
-        font-family: ${t.fontFamily}, Inter, Avenir, Helvetica, Arial, sans-serif;
+        font-family: ${t.fontFamily};
         font-size: 16px;
         line-height: 24px;
         font-weight: 400;
@@ -123,4 +123,6 @@ export default function AppThemeProvider(props: Props) {
       {props.children}
     </ThemeProvider>
   );
-}
+};
+
+export default AppThemeProvider;

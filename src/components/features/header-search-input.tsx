@@ -2,16 +2,17 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Box } from "components/shared/box";
 import { InputGroup } from "components/shared/input-group";
+import { NO_RESULT_ID } from "constants/app";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 
 export interface HeaderSearchInputProps {
   placeholder: string;
   onSearchDebounced: (value: string) => void;
-  // enter, click
   onSelectResult: (result: Result) => void;
   results: Result[];
   debouncedTime?: number;
   className?: string;
+  show: boolean;
 }
 
 export interface Result {
@@ -36,10 +37,11 @@ const S = {
     margin-top: 0.5em;
     left: 0;
     right: 0;
-    padding: 0 1em;
+    padding: 1 0em;
     height: max-content;
     max-height: 500px;
-    transition: all 0.3s ease-in-out;
+    overflow-x: hidden;
+    display: grid;
     ${(props) =>
       props.expand
         ? css`
@@ -49,7 +51,24 @@ const S = {
             border-width: 0 !important;
           `}
   `,
-  ResultItem: styled(Box)``,
+  ResultItem: styled(Box)<{
+    isNoResult: boolean;
+  }>`
+    width: calc(18.75em - 2em);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    color: ${(props) => props.theme.textColor};
+    cursor: pointer;
+    ${(props) =>
+      !props.isNoResult &&
+      css`
+        &:hover {
+          color: ${props.theme.primaryColor};
+          background-color: ${props.theme.buttonBackgroundColor};
+        }
+      `}
+  `,
 };
 
 export interface HeaderSearchInputRef {
@@ -58,7 +77,7 @@ export interface HeaderSearchInputRef {
 }
 
 const Component: React.ForwardRefRenderFunction<HeaderSearchInputRef, HeaderSearchInputProps> = (
-  { placeholder, results, onSearchDebounced, debouncedTime = 500, className }: HeaderSearchInputProps,
+  { placeholder, results, onSearchDebounced, debouncedTime = 500, className, show }: HeaderSearchInputProps,
   ref: React.ForwardedRef<HeaderSearchInputRef>,
 ) => {
   const [resultContainerStatus, setResultsContainerStatus] = useState(false);
@@ -74,7 +93,13 @@ const Component: React.ForwardRefRenderFunction<HeaderSearchInputRef, HeaderSear
   }));
 
   const renderResultItems = (): React.ReactNode => {
-    return results.map((result) => <S.ResultItem key={result.id}>{result.name}</S.ResultItem>);
+    return results.map((result) => {
+      return (
+        <S.ResultItem isNoResult={result.id === NO_RESULT_ID} key={result.id}>
+          {result.name}
+        </S.ResultItem>
+      );
+    });
   };
 
   const handleOnChangeInput = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -94,9 +119,11 @@ const Component: React.ForwardRefRenderFunction<HeaderSearchInputRef, HeaderSear
   return (
     <S.HeaderSearchInput className={className}>
       <S.SearchInputGroup placeholder={placeholder} onChange={handleOnChangeInput} />
-      <S.ResultContainer card expand={resultContainerStatus}>
-        {renderResultItems()}
-      </S.ResultContainer>
+      {show && (
+        <S.ResultContainer card expand={resultContainerStatus}>
+          {renderResultItems()}
+        </S.ResultContainer>
+      )}
     </S.HeaderSearchInput>
   );
 };

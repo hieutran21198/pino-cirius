@@ -4,6 +4,7 @@ export interface AppTheme {
   textColor: string;
   backgroundColor: string;
   buttonBackgroundColor: string;
+  backgroundDimmer: string;
   border: string;
   primaryColor: string;
   primaryColorLighter: string;

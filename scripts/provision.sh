@@ -27,4 +27,4 @@ if git remote show origin &>/dev/null; then
 fi
 
 echo "Setting new name of application"
-sed -i "s/pino-cirius/$0/g" package.json
+sed -i "" -e "s/pino-cirius/$0/g" package.json

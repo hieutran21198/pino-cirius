@@ -1,9 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { RoutePath } from "components/routes";
 import { Box } from "components/shared/box";
 import { Button } from "components/shared/button";
+import { HEADER_SEARCH_INPUT_NO_RESULT } from "constants/app";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MediaWidth } from "theme/constants";
 import { media } from "theme/utils";
 import { mockSearchResults } from "__mocks__/mockSearchResults";
@@ -69,15 +71,14 @@ const S = {
         `}
     }
   `,
-  SearchButton: styled(Button)`
+  RightContainerButton: styled(Button)`
     display: flex;
     justify-content: center;
     align-items: center;
   `,
-  ChangeThemeButton: styled(Button)`
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  ButtonLogin: styled(Button)`
+    background-color: ${(props) => props.theme.primaryColor};
+    color: #fff;
   `,
 };
 
@@ -85,12 +86,13 @@ export const Header: React.FC<HeaderProps> = ({
   appName,
   navItems,
   selectedThemeContent,
-  onClickChangeThemeButton,
+  onClickChangeThemeButton: handleOnClickChangeThemeButton,
 }: HeaderProps) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchResults, setSearchResults] = useState<Result[]>([]);
   const headerSearchInputRef = useRef<HeaderSearchInputRef | null>(null);
+  const navigate = useNavigate();
 
   const renderListNavigationItems = (): React.ReactNode => {
     return navItems.map((item) => (
@@ -110,11 +112,17 @@ export const Header: React.FC<HeaderProps> = ({
     setShowSearchInput(!showSearchInput);
   };
 
+  const handleOnClickLoginButton = (): void => {
+    navigate(RoutePath.LOGIN);
+  };
+
   useEffect(() => {
     // TODO: call api to get search results
     const mockGettingSearchResults = setTimeout(() => {
-      if (searchValue === "") {
+      if (searchValue !== "") {
         setSearchResults(mockSearchResults);
+      } else {
+        setSearchResults(HEADER_SEARCH_INPUT_NO_RESULT);
       }
     }, 300);
 
@@ -136,8 +144,13 @@ export const Header: React.FC<HeaderProps> = ({
               placeholder="Search anything here..."
               results={searchResults}
             />
-            <S.SearchButton onClick={handleOnClickSearchButton}>{!showSearchInput ? "" : ""}</S.SearchButton>
-            <S.ChangeThemeButton onClick={onClickChangeThemeButton}>{selectedThemeContent}</S.ChangeThemeButton>
+            <S.RightContainerButton onClick={handleOnClickSearchButton}>
+              {!showSearchInput ? "" : ""}
+            </S.RightContainerButton>
+            <S.RightContainerButton onClick={handleOnClickChangeThemeButton}>
+              {selectedThemeContent}
+            </S.RightContainerButton>
+            <S.ButtonLogin onClick={handleOnClickLoginButton}>Login </S.ButtonLogin>
           </S.RightContainer>
         </S.ContentContainer>
       </Box>

@@ -37,7 +37,8 @@ export const LIGHT_THEME: AppTheme = {
   fontFamily: "DaddyTimeMono, Inter, Avenir, Helvetica, Arial, sans-serif",
   textColor: "#000000",
   backgroundColor: "#ffffff",
-  buttonBackgroundColor: "#ffffff",
+  backgroundDimmer: "rgba(0, 0, 0, 0.05)",
+  buttonBackgroundColor: "#f0f0f0",
   border: "1px solid gray",
   primaryColor: "#535bf2",
   primaryColorLighter: "#646cff",
@@ -45,9 +46,11 @@ export const LIGHT_THEME: AppTheme = {
   headerHeightLG: "4em",
 };
 
-export const NO_RESULT_FOUND = [
+export const NO_RESULT_ID = "no_result";
+
+export const HEADER_SEARCH_INPUT_NO_RESULT = [
   {
-    id: "no_result",
-    name: "There is no result",
+    id: NO_RESULT_ID,
+    name: "No result",
   },
 ];

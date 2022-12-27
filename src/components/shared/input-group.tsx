@@ -2,7 +2,11 @@ import styled from "@emotion/styled";
 import { Box } from "./box";
 
 const S = {
-  InputGroup: styled(Box)``,
+  InputGroup: styled(Box)`
+    display: flex;
+    gap: 1em;
+    align-items: center;
+  `,
   Input: styled.input`
     border-radius: 8px;
     border: 1px solid transparent;
@@ -40,7 +44,7 @@ export const InputGroup: React.FC<InputGroupProps> = ({
 }: InputGroupProps) => {
   return (
     <S.InputGroup className={className}>
-      {label ?? <label>{label}</label>}
+      {typeof label !== "undefined" && <label>{label}</label>}
       <Input {...inputProps} className={inputClassName} />
     </S.InputGroup>
   );

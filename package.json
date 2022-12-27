@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint --ext .ts,.tsx",
     "format": "prettier --write .",
+    "test": "yarn lint",
     "lint:fix": "eslint --ext .ts,.tsx --fix",
     "lint:format": "yarn lint && yarn format",
     "prepare": "husky install",
@@ -54,9 +55,6 @@
     "vite-tsconfig-paths": "^4.0.3"
   },
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "yarn lint:format",
-      "eslint --cache --fix"
-    ]
+    "*.{ts,tsx}": "eslint --cache --fix"
   }
 }

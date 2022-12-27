@@ -20,10 +20,11 @@ import { getThemePreset } from "utils/theme";
 
 const S = {
   App: styled(Box)`
-    width: 100%;
-    height: 100%;
-    min-width: 100vw;
-    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   `,
   FontFaces: css`
     @font-face {

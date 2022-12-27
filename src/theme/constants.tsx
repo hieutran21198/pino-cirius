@@ -5,6 +5,7 @@ export const DEFAULT_THEME: AppTheme = {
   fontFamily: "DaddyTimeMono, Inter, Avenir, Helvetica, Arial, sans-serif",
   textColor: "rgba(255,255,255, 0.87)",
   backgroundColor: "#242424",
+  backgroundDimmer: "rgba(0,0,0,0.5)",
   buttonBackgroundColor: "#1a1a1a",
   border: "1px solid gray",
   primaryColor: "#535bf2",

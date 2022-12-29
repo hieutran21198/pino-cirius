@@ -1,12 +1,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useQuery } from "@tanstack/react-query";
 import { Box } from "components/shared/box";
 import { Button } from "components/shared/button";
 import { Form } from "components/shared/form";
 import { InputGroup } from "components/shared/input-group";
 import { APP_CONFIG } from "constants/config";
-import { githubAuthorize } from "http/oauth/github";
 import { MediaWidth } from "theme/constants";
 import { hexToRGBA, media } from "theme/utils";
 
@@ -70,17 +68,18 @@ const S = {
 };
 
 export const PageLogin: React.FC = () => {
-  const githubAuthorizeResult = useQuery({
-    queryKey: [githubAuthorize],
-    queryFn: async () =>
-      await githubAuthorize({
-        client_id: APP_CONFIG.VITE_GH_CLIENT_ID,
-      }),
-  });
+  const handleOnClickLoginWithGithub = (): void => {
+    const url = new URL("https://github.com/login/oauth/authorize");
+    const searchParams = url.searchParams;
 
-  const handleOnClickLoginWithGithub = (): void => {};
+    searchParams.set("client_id", APP_CONFIG.VITE_GH_CLIENT_ID);
+    searchParams.set("scope", "read:user");
+    searchParams.set("redirect_uri", "http://127.0.0.1:8080/api/v1/oauth/github/redirect");
 
-  const isLoading = githubAuthorizeResult.isLoading;
+    window.open(url.toString());
+  };
+
+  const isLoading = false;
 
   return (
     <S.PageLogin>

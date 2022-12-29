@@ -5,13 +5,16 @@ import { AppRoutes } from "components/routes";
 import { Box } from "components/shared/box";
 import {
   APP_NAME,
+  FORCE_LOAD_AUTH_CHANNEL,
   HEADER_NAVIGATION_ITEMS,
   LIGHT_THEME,
   LocalStorageKeys,
   ThemePreset,
   THEME_PRESET_ICONS,
 } from "constants/app";
+import { RoutePath } from "constants/routes";
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { DEFAULT_THEME, MediaWidth } from "theme/constants";
 
 import AppThemeProvider from "theme/provider";
@@ -29,7 +32,7 @@ const S = {
   FontFaces: css`
     @font-face {
       font-family: "DaddyTimeMono";
-      src: url("src/assets/fonts/DaddyTimeMono-Nerd-Font-Complete.ttf") format("truetype");
+      src: url("/fonts/DaddyTimeMono-Nerd-Font-Complete.ttf") format("truetype");
     }
   `,
   ContentContainer: styled(Box)`
@@ -42,6 +45,7 @@ const S = {
 
 const App: React.FC = () => {
   const [themePreset, setThemePreset] = useState<ThemePreset>(getThemePreset());
+  const location = useLocation();
 
   const handleOnClickChangeThemeButton = (): void => {
     const nextTheme = themePreset === ThemePreset.DARK ? ThemePreset.LIGHT : ThemePreset.DARK;
@@ -52,6 +56,22 @@ const App: React.FC = () => {
   useEffect(() => {
     localStorage.setItem(LocalStorageKeys.THEME, themePreset);
   }, [themePreset]);
+
+  useEffect(() => {
+    const channel = new BroadcastChannel(FORCE_LOAD_AUTH_CHANNEL);
+
+    const getMessage = (event: { data: boolean }): void => {
+      if (!location.pathname.startsWith(RoutePath.OAUTH_REDIRECTED) && event.data) {
+        console.log(true);
+      }
+    };
+
+    channel.addEventListener("message", getMessage);
+
+    return () => {
+      channel.removeEventListener("message", getMessage);
+    };
+  }, []);
 
   return (
     <AppThemeProvider theme={themePreset === ThemePreset.DARK ? DEFAULT_THEME : LIGHT_THEME}>

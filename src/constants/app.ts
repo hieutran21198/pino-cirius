@@ -1,5 +1,5 @@
-import { RoutePath } from "components/routes";
 import { AppTheme } from "theme/model";
+import { RoutePath } from "./routes";
 
 export const APP_NAME = "Pino Cirius";
 
@@ -30,6 +30,7 @@ export const THEME_PRESET_ICONS = {
 
 export enum LocalStorageKeys {
   THEME = "theme",
+  AUTHORIZATION = "authorization",
 }
 
 export const LIGHT_THEME: AppTheme = {
@@ -54,3 +55,7 @@ export const HEADER_SEARCH_INPUT_NO_RESULT = [
     name: "No result",
   },
 ];
+
+export const AUTO_CLOSE_TIMEOUT = 5; // second
+
+export const FORCE_LOAD_AUTH_CHANNEL = "load-auth";

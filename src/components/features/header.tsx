@@ -1,9 +1,9 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { RoutePath } from "components/routes";
 import { Box } from "components/shared/box";
 import { Button } from "components/shared/button";
 import { HEADER_SEARCH_INPUT_NO_RESULT } from "constants/app";
+import { RoutePath } from "constants/routes";
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { MediaWidth } from "theme/constants";

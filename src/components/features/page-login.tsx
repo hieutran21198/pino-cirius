@@ -73,7 +73,8 @@ export const PageLogin: React.FC = () => {
     const searchParams = url.searchParams;
 
     searchParams.set("client_id", APP_CONFIG.VITE_GH_CLIENT_ID);
-    searchParams.set("scope", "read:user");
+    searchParams.set("scope", "user:email");
+    searchParams.set("allow_signup", "true");
     searchParams.set("redirect_uri", "http://127.0.0.1:8080/api/v1/oauth/github/redirect");
 
     window.open(url.toString());

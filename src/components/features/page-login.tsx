@@ -5,6 +5,7 @@ import { Button } from "components/shared/button";
 import { Form } from "components/shared/form";
 import { InputGroup } from "components/shared/input-group";
 import { APP_CONFIG } from "constants/config";
+import { API } from "constants/http";
 import { MediaWidth } from "theme/constants";
 import { hexToRGBA, media } from "theme/utils";
 
@@ -69,15 +70,22 @@ const S = {
 
 export const PageLogin: React.FC = () => {
   const handleOnClickLoginWithGithub = (): void => {
-    const url = new URL("https://github.com/login/oauth/authorize");
+    const url = new URL(API.githubAuthorizeUrl);
     const searchParams = url.searchParams;
 
     searchParams.set("client_id", APP_CONFIG.VITE_GH_CLIENT_ID);
-    searchParams.set("scope", "user:email");
+    searchParams.set("scope", "read:user");
     searchParams.set("allow_signup", "true");
-    searchParams.set("redirect_uri", "http://127.0.0.1:8080/api/v1/oauth/github/redirect");
+    searchParams.set("state", "pass-through value");
+    searchParams.set("redirect_uri", APP_CONFIG.VITE_GH_REDIRECT_URL);
 
     window.open(url.toString());
+  };
+
+  const handleOnClickLoginWithGoogle = (): void => {
+    console.log(API);
+    // redirect to google login page
+    window.open(API.loginViaGoogleUrl);
   };
 
   const isLoading = false;
@@ -92,7 +100,7 @@ export const PageLogin: React.FC = () => {
           <S.ButtonLogin>Login</S.ButtonLogin>
         </S.Form>
         <S.AnotherMethodContainer>
-          <S.ButtonGoogle>Login via Google account </S.ButtonGoogle>
+          <S.ButtonGoogle onClick={handleOnClickLoginWithGoogle}>Login via Google account </S.ButtonGoogle>
           <S.ButtonGithub onClick={handleOnClickLoginWithGithub}>Login via Github account </S.ButtonGithub>
         </S.AnotherMethodContainer>
       </S.Container>

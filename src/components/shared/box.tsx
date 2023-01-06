@@ -1,5 +1,6 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { forwardRef, ReactElement } from "react";
 import { MediaWidth } from "theme/constants";
 import { media } from "theme/utils";
 
@@ -37,6 +38,11 @@ const S = {
 
 export type BoxProps = {} & Partial<BoxStyleProps> & JSX.IntrinsicElements["div"];
 
-export const Box: React.FC<BoxProps> = ({ responsive = false, card = false, ...boxProps }: BoxProps) => {
-  return <S.Box responsive={responsive} card={card} {...boxProps} />;
+const Component = (
+  { responsive = false, card = false, ...boxProps }: BoxProps,
+  ref: React.LegacyRef<HTMLDivElement> | undefined,
+): ReactElement => {
+  return <S.Box ref={ref} responsive={responsive} card={card} {...boxProps} />;
 };
+
+export const Box = forwardRef<HTMLDivElement, BoxProps>(Component);

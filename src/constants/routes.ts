@@ -11,4 +11,5 @@ export enum RoutePath {
 
   OAUTH_REDIRECTED = "/oauth/redirect",
   // private
+  CREATE_POST = "/management/posts/create",
 }
